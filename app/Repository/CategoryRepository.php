@@ -31,6 +31,7 @@ class CategoryRepository
         }
 
         $ret = $this->data[$key];
+        asort($ret);
         if (is_array($data)) {
             foreach ($data as $value) {
                 $value = str_replace("+ ", "+", $value);
@@ -48,6 +49,8 @@ class CategoryRepository
             }
         }
 
-        return array_unique(array_values($ret));
+        $ret = array_unique($ret);
+        asort($ret);
+        return array_values($ret);
     }
 }
