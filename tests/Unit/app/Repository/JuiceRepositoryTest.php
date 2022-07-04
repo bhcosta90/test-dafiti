@@ -1,25 +1,25 @@
 <?php
 
-namespace Tests\Unit;
+namespace Tests\Unit\app\Repository;
 
-use App\Repository\CategoryRepository;
+use App\Repository\JuiceRepository;
 use PHPUnit\Framework\TestCase;
 
-class CategoryRepositoryTest extends TestCase
+class JuiceRepositoryTest extends TestCase
 {
     public function testCreateClassicPlusChocolate()
     {
         $ret = $this->getRepo()->filter('Classic', ["+chocolate"]);
         $this->assertEquals([
-            "strawberry",
             "banana",
-            "pineapple",
-            "mango",
-            "peach",
+            "chocolate",
             "honey",
             "ice",
+            "mango",
+            "peach",
+            "pineapple",
+            "strawberry",
             "yogurt",
-            "chocolate"
         ], $ret);
     }
 
@@ -28,13 +28,13 @@ class CategoryRepositoryTest extends TestCase
         $ret = $this->getRepo()->filter('Classic', ["+chocolate", "-strawberry"]);
         $this->assertEquals([
             "banana",
-            "pineapple",
-            "mango",
-            "peach",
+            "chocolate",
             "honey",
             "ice",
+            "mango",
+            "peach",
+            "pineapple",
             "yogurt",
-            "chocolate"
         ], $ret);
     }
 
@@ -42,14 +42,14 @@ class CategoryRepositoryTest extends TestCase
     {
         $ret = $this->getRepo()->filter('Classic');
         $this->assertEquals([
-            "strawberry",
             "banana",
-            "pineapple",
-            "mango",
-            "peach",
             "honey",
             "ice",
-            "yogurt"
+            "mango",
+            "peach",
+            "pineapple",
+            "strawberry",
+            "yogurt",
         ], $ret);
     }
 
@@ -58,12 +58,12 @@ class CategoryRepositoryTest extends TestCase
         $ret = $this->getRepo()->filter('Classic', ["-strawberry"]);
         $this->assertEquals([
             "banana",
-            "pineapple",
-            "mango",
-            "peach",
             "honey",
             "ice",
-            "yogurt"
+            "mango",
+            "peach",
+            "pineapple",
+            "yogurt",
         ], $ret);
     }
 
@@ -72,10 +72,10 @@ class CategoryRepositoryTest extends TestCase
         $ret = $this->getRepo()->filter('Just Desserts');
         $this->assertEquals([
             "banana",
-            "ice cream",
+            "cherry",
             "chocolate",
+            "ice cream",
             "peanut",
-            "cherry"
         ], $ret);
     }
 
@@ -84,8 +84,8 @@ class CategoryRepositoryTest extends TestCase
         $ret = $this->getRepo()->filter('Just Desserts', ['-ice cream', '-peanut']);
         $this->assertEquals([
             "banana",
+            "cherry",
             "chocolate",
-            "cherry"
         ], $ret);
     }
 
@@ -97,6 +97,6 @@ class CategoryRepositoryTest extends TestCase
 
     private function getRepo()
     {
-        return new CategoryRepository;
+        return new JuiceRepository;
     }
 }

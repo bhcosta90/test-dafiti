@@ -1,6 +1,6 @@
 <?php
 
-use App\Repository\CategoryRepository;
+use App\Repository\JuiceRepository;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
@@ -45,7 +45,7 @@ class FeatureContext implements Context
      */
     public function createPlusAndMinus($category, $plus = null, $minus = null)
     {
-        $repo = new CategoryRepository;
+        $repo = new JuiceRepository;
         $arrayPlus = explode(',', str_replace(', ', ',', $plus));
         $arrayMinus = explode(',', str_replace(', ', ',', $minus));
         foreach ($arrayMinus as $k => $v) {

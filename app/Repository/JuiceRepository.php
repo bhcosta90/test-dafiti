@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use Illuminate\Http\Response;
 
-class CategoryRepository
+class JuiceRepository
 {
     private array $data = [];
 
