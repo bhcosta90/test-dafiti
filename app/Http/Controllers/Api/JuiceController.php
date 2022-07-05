@@ -9,9 +9,9 @@ use App\Repository\JuiceRepository;
 
 class JuiceController extends Controller
 {
-    public function index(JuiceRequest $request, JuiceRepository $juiceRepository)
+    public function index(JuiceRequest $request, string $juice, JuiceRepository $juiceRepository)
     {
-        $arrayJuice = explode(',', str_replace(', ', ',', $request->juice));
+        $arrayJuice = explode(',', str_replace(', ', ',', $juice));
         $juice = $arrayJuice[0];
         unset($arrayJuice[0]);
         $filter = implode(',', array_merge($request->filter ?? [], $arrayJuice ?: []));

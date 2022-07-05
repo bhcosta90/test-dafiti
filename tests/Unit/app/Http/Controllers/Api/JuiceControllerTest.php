@@ -106,6 +106,7 @@ class JuiceControllerTest extends TestCase
         $controller = new JuiceController();
         return $controller->index(
             request: $this->mockRequest($juice, $filter),
+            juice: $juice,
             juiceRepository: new JuiceRepository,
         )->resource;
     }

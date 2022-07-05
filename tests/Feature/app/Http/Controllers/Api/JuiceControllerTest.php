@@ -92,6 +92,7 @@ class JuiceControllerTest extends TestCase
     public function testNotFoundJuice()
     {
         $ret = $this->getJson('/api/juice/test');
+
         $ret->assertStatus(404)->assertJson([
             'message' => 'test not found'
         ]);

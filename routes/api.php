@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\JuiceController;
+use App\Repository\JuiceRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

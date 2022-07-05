@@ -20,18 +20,27 @@ class JuiceRepository
         ];
     }
 
+    public function getData()
+    {
+        return $this->data;
+    }
+
     public function filter(string $key, string|array|null $data = null)
     {
         if (gettype($data) === 'string') {
             $data = explode(',', str_replace(', ', ',', $data));
         }
-        
+
         if (empty($this->data[$key])) {
             throw new Exceptions\JuiceException("{$key} not found", Response::HTTP_NOT_FOUND);
         }
 
+        return $this->executeFilter($key, $data);
+    }
+
+    private function executeFilter($key, $data)
+    {
         $ret = $this->data[$key];
-        asort($ret);
         if (is_array($data)) {
             foreach ($data as $value) {
                 $value = str_replace("+ ", "+", $value);
@@ -48,9 +57,7 @@ class JuiceRepository
                 }
             }
         }
-
-        $ret = array_unique($ret);
         asort($ret);
-        return array_values($ret);
+        return array_values(array_unique($ret));
     }
 }
