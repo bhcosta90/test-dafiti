@@ -54,7 +54,7 @@ Lista de Sucos ${juices}
 ```
 ## Desenvolvimento
 
-Para executar esse projeto em modo desenvolvimento, executar os comandos abaixos *(Deve utilizar no mínimo PHP:8.0.2)*
+Para executar esse projeto em modo desenvolvimento, executar os comandos abaixo *(Deve utilizar no mínimo PHP:8.0.2)*
 
 ```bash
   $ docker-compose up -d --build
