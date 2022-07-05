@@ -43,7 +43,7 @@ Lista de Sucos ${juices}
   GET http://localhost:8888/api/v1/juice/Classic,+chocolate,-morango
 ```
 
-#### Retorna todos os itens do suco, adicionando chocolate e retirando morango
+#### Retorna uma mensagem que não existe o suco `testando` e o status code `404`
 ```http
   GET http://localhost:8888/api/v1/juice/testando
 ```
