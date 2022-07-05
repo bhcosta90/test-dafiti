@@ -7,7 +7,6 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 RUN apk add --no-cache --virtual .build-deps \
     $PHPIZE_DEPS \
     curl-dev \
-    # imagemagick-dev \
     libtool \
     libxml2-dev \
     && apk add --no-cache \
@@ -31,5 +30,4 @@ RUN apk add --no-cache --virtual .build-deps \
 
 WORKDIR /var/www
 EXPOSE 9000
-# CMD php artisan serve --host=127.0.0.1 --port=9000
 CMD ["php-fpm"]
