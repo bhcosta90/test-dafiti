@@ -28,19 +28,37 @@ Para executar esse projeto em modo desenvolvimento, executar os comandos abaixos
 
 ## Documentação da API
 
+Lista de Sucos ${juices}
+- Classic
+- Forest Berry
+- Freezie
+- Greenie
+- Vegan Delite
+- Just Desserts
+
 #### Retorna todos os itens do suco
 
 ```http
-  GET http://localhost:8888/api/juice/${juice}
+  GET http://localhost:8888/api/juice/Classic
 ```
 
 #### Retorna todos os itens do suco, adicionando chocolate e morango
 
 ```http
-  GET http://localhost:8888/api/juice/${juice},+chocolate,morango
+  GET http://localhost:8888/api/juice/Classic,+chocolate,morango
 ```
 
 #### Retorna todos os itens do suco, adicionando chocolate e retirando morango
 ```http
-  GET http://localhost:8888/api/juice/${juice},+chocolate,-morango
+  GET http://localhost:8888/api/juice/Classic,+chocolate,-morango
+```
+
+#### Retorna todos os itens do suco, adicionando chocolate e retirando morango
+```http
+  GET http://localhost:8888/api/juice/testando
+```
+```
+{
+  "message": "testando not found"
+}
 ```
