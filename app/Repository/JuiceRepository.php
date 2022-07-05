@@ -27,7 +27,7 @@ class JuiceRepository
         }
         
         if (empty($this->data[$key])) {
-            throw new Exceptions\CategoryException("{$key} not found", Response::HTTP_NOT_FOUND);
+            throw new Exceptions\JuiceException("{$key} not found", Response::HTTP_NOT_FOUND);
         }
 
         $ret = $this->data[$key];

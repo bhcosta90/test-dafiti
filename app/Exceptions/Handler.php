@@ -2,6 +2,7 @@
 
 namespace App\Exceptions;
 
+use App\Repository\Exceptions\JuiceException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 
@@ -45,6 +46,14 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        $this->renderable(function (JuiceException $e, $request) {
+            if ($request->is('api/*')) {
+                return response()->json([
+                    'message' => $e->getMessage()
+                ], $e->getCode());
+            }
         });
     }
 }
