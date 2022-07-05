@@ -1,0 +1,24 @@
+# For more information: https://laravel.com/docs/sail
+version: '3'
+services:
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "8888:80"
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx:/etc/nginx/conf.d/
+        networks:
+            - app-network
+    app:
+        build:
+            context: ./
+            dockerfile: ./docker/Dockerfile.prod
+        networks:
+            - app-network
+
+networks:
+  app-network:
+    driver: bridge
