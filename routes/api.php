@@ -20,4 +20,12 @@ Route::get('/', function () {
 });
 
 
-Route::get('/juice/{juice}', [JuiceController::class, 'index']);
+/**
+ * @OA\Info(
+ *     version="1.0",
+ *     title="Sample API Documentation"
+ * )
+ */
+Route::prefix('v1')->group(function(){
+    Route::get('/juice/{juice}', [JuiceController::class, 'index']);
+});

@@ -91,7 +91,7 @@ class JuiceControllerTest extends TestCase
 
     public function testNotFoundJuice()
     {
-        $ret = $this->getJson('/api/juice/test');
+        $ret = $this->getJson('/api/v1/juice/test');
 
         $ret->assertStatus(404)->assertJson([
             'message' => 'test not found'
@@ -103,7 +103,7 @@ class JuiceControllerTest extends TestCase
         if (is_array($filter) && count($filter)) {
             $filter = implode(',', $filter);
         }
-        $ret = $this->getJson('/api/juice/' . $juice . ($filter ? ',' . $filter : ''));
+        $ret = $this->getJson('/api/v1/juice/' . $juice . ($filter ? ',' . $filter : ''));
         return $ret->json('data');
     }
 }

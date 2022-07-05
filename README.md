@@ -23,26 +23,29 @@ Lista de Sucos ${juices}
 - Vegan Delite
 - Just Desserts
 
+#### Swagger documentação
+`GET http://localhost:8888/api/documentation`
+
 #### Retorna todos os itens do suco
 
 ```http
-  GET http://localhost:8888/api/juice/Classic
+  GET http://localhost:8888/api/v1/juice/Classic
 ```
 
 #### Retorna todos os itens do suco, adicionando chocolate e morango
 
 ```http
-  GET http://localhost:8888/api/juice/Classic,+chocolate,morango
+  GET http://localhost:8888/api/v1/juice/Classic,+chocolate,morango
 ```
 
 #### Retorna todos os itens do suco, adicionando chocolate e retirando morango
 ```http
-  GET http://localhost:8888/api/juice/Classic,+chocolate,-morango
+  GET http://localhost:8888/api/v1/juice/Classic,+chocolate,-morango
 ```
 
 #### Retorna todos os itens do suco, adicionando chocolate e retirando morango
 ```http
-  GET http://localhost:8888/api/juice/testando
+  GET http://localhost:8888/api/v1/juice/testando
 ```
 ```
 {

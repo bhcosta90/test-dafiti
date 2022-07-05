@@ -12,7 +12,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8888/api/juice/Classic",
+					"raw": "http://localhost:8888/api/v1/juice/Classic",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -32,7 +32,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8888/api/juice/Classic",
+							"raw": "http://localhost:8888/api/v1/juice/Classic",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -57,7 +57,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8888/api/juice/Classic",
+							"raw": "http://localhost:8888/api/v1/juice/Classic",
 							"protocol": "http",
 							"host": [
 								"localhost"
