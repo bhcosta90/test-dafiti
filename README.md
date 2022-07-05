@@ -24,10 +24,8 @@ Lista de Sucos ${juices}
 - Just Desserts
 
 #### Swagger documentação
+`GET http://localhost:8888/api/documentation`
 
-```http
-  GET http://localhost:8888/api/documentation
-```
 #### Retorna todos os itens do suco
 
 ```http
