@@ -13,9 +13,9 @@ Para executar esse projeto, favor rodar o comando abaixo
   $ docker-compose -f docker-compose.prod.yml up -d --build
 ```
 
-## Desenvolvimento (Deve utilizar no mínimo PHP:^8.0)
+## Desenvolvimento
 
-Para executar esse projeto em modo desenvolvimento, executar os comandos abaixos
+Para executar esse projeto em modo desenvolvimento, executar os comandos abaixos *(Deve utilizar no mínimo PHP:^8.0)*
 
 ```bash
   $ docker-compose up -d --build
@@ -61,4 +61,14 @@ Lista de Sucos ${juices}
 {
   "message": "testando not found"
 }
+```
+## Rodando os testes
+
+Para rodar os testes, rode o seguinte comando *(Deve utilizar no mínimo PHP:^8.0)*
+
+```bash
+  composer install
+  $ chmod 777 -R storage/
+  php artisan test
+  php vendor/bin/behat
 ```
