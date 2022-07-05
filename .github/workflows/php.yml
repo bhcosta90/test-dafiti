@@ -33,7 +33,7 @@ jobs:
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
     - name: Run phpcs
-      run: vendor/bin/phpcs app --ignore=vendor/ --standard=PSR1,PSR2
+      run: vendor/bin/phpcs app --ignore=vendor/ --standard=PSR1,PSR2,PSR12
 
     - name: Run test unit
       run: vendor/bin/phpunit
