@@ -1,11 +1,9 @@
 
 # Visualização de sucos e ingredientes
-
 Projeto consiste em retornar o suco com determinado cliente, customizando caso você queira ou colocar mais ingredientes ou retirar algum deles.
 
 
 ## Executar
-
 Para executar esse projeto, favor rodar o comando abaixo
 
 ```bash
@@ -14,7 +12,6 @@ Para executar esse projeto, favor rodar o comando abaixo
 ```
 
 ## Documentação da API
-
 Lista de Sucos ${juices}
 - Classic
 - Forest Berry
@@ -33,7 +30,6 @@ Lista de Sucos ${juices}
 ```
 
 #### Retorna todos os itens do suco, adicionando chocolate e morango
-
 ```http
   GET http://localhost:8888/api/v1/juice/Classic,+chocolate,morango
 ```
@@ -53,7 +49,6 @@ Lista de Sucos ${juices}
 }
 ```
 ## Desenvolvimento
-
 Para executar esse projeto em modo desenvolvimento, executar os comandos abaixo *(Deve utilizar no mínimo PHP:8.0.2)*
 
 ```bash
@@ -65,7 +60,6 @@ Para executar esse projeto em modo desenvolvimento, executar os comandos abaixo 
 ```
 
 ## Rodando os testes
-
 Para rodar os testes, rode o seguinte comando *(Deve utilizar no mínimo PHP:8.0.2)*
 
 ```bash
