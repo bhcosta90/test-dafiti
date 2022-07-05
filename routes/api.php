@@ -19,6 +19,9 @@ Route::get('/', function () {
     return true;
 });
 
+Route::get('/info', function () {
+    return phpinfo();
+});
 
 /**
  * @OA\Info(

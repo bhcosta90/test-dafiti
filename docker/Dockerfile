@@ -1,38 +1,35 @@
-FROM php:8.1-fpm
+FROM php:8.1-fpm-alpine
 
-# Set working directory
-WORKDIR /var/www
+ENV COMPOSER_HOME /composer
+ENV PATH ./vendor/bin:/composer/vendor/bin:$PATH
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-
-RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions mbstring zip exif pcntl
-
-#previous code
-# Install dependencies
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \
+RUN apk add --no-cache --virtual .build-deps \
+    $PHPIZE_DEPS \
+    curl-dev \
+    # imagemagick-dev \
+    libtool \
+    libxml2-dev \
+    && apk add --no-cache \
+    bash \
     curl \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && groupadd -g 1000 www \
-    && useradd -u 1000 -ms /bin/bash -g www www
+    freetype-dev \
+    g++ \
+    gcc \
+    libzip-dev \
+    oniguruma-dev \
+    zlib-dev \
+    && docker-php-ext-install \
+    bcmath \
+    curl \
+    mbstring \
+    pcntl \
+    xml \
+    zip \
+    && curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer \ 
+    && apk del -f .build-deps
 
-# Copy existing application directory permissions
-COPY --chown=www:www . /var/www
-
-# Change current user to www
-USER www
-
-# Expose port 9000 and start php-fpm server
+WORKDIR /var/www
 EXPOSE 9000
+# CMD php artisan serve --host=127.0.0.1 --port=9000
 CMD ["php-fpm"]
