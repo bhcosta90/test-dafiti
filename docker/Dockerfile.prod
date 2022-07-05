@@ -1,20 +1,14 @@
-FROM php:8.1-fpm
+#------------------- BUILDING THE CONTAINER WITH COMPOSER ----------------------
+FROM php:8.1-fpm AS builder
 
 COPY . /var/www/
-
-# Set working directory
 WORKDIR /var/www
-
-ENV APP_ENV='production'
-ENV APP_DEBUG=true
 
 ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
 
 RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
     install-php-extensions mbstring zip exif pcntl
 
-#previous code
-# Install dependencies
 RUN apt-get update && apt-get install -y \
     build-essential \
     libpng-dev \
@@ -23,25 +17,47 @@ RUN apt-get update && apt-get install -y \
     locales \
     zip \
     jpegoptim optipng pngquant gifsicle \
-    vim \
     unzip \
     git \
     curl \
     && apt-get clean && rm -rf /var/lib/apt/lists/* \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
-    && groupadd -g 1000 www \
-    && useradd -u 1000 -ms /bin/bash -g www www \
-    && composer install --no-dev \
+    && composer install --optimize-autoloader --no-dev \
     && cp .env.example .env \
     && php artisan key:generate \
-    && chmod -R 777 /var/www/storage
+    && chmod -R 777 /var/www/storage \
+    && php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache
 
-# Copy existing application directory permissions
+#------------------------ BUILDER OF PRODUCTION --------------------------------
+FROM php:8.1-fpm
+COPY --from=builder /var/www/ /var/www/
+WORKDIR /var/www
+ENV APP_ENV='production'
+ENV APP_DEBUG=false
+
+ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+
+RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
+    install-php-extensions mbstring zip exif pcntl
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    locales \
+    zip \
+    jpegoptim optipng pngquant gifsicle \
+    unzip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* \
+    && groupadd -g 1000 www \
+    && useradd -u 1000 -ms /bin/bash -g www www
+
 COPY --chown=www:www . /var/www
 
-# Change current user to www
 USER www
 
-# Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
