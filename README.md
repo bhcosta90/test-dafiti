@@ -67,7 +67,6 @@ Para rodar os testes, rode o seguinte comando *(Deve utilizar no mínimo PHP:8.0
 
 ```bash
   composer install
-  $ chmod 777 -R storage/
   php artisan test
   php vendor/bin/behat
 ```
