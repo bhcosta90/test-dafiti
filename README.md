@@ -15,7 +15,7 @@ Para executar esse projeto, favor rodar o comando abaixo
 
 ## Desenvolvimento
 
-Para executar esse projeto em modo desenvolvimento, executar os comandos abaixos *(Deve utilizar no mínimo PHP:^8.0)*
+Para executar esse projeto em modo desenvolvimento, executar os comandos abaixos *(Deve utilizar no mínimo PHP:8.0.2)*
 
 ```bash
   $ docker-compose up -d --build
@@ -64,7 +64,7 @@ Lista de Sucos ${juices}
 ```
 ## Rodando os testes
 
-Para rodar os testes, rode o seguinte comando *(Deve utilizar no mínimo PHP:^8.0)*
+Para rodar os testes, rode o seguinte comando *(Deve utilizar no mínimo PHP:8.0.2)*
 
 ```bash
   composer install
