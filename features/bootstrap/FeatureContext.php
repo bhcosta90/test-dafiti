@@ -46,10 +46,10 @@ class FeatureContext implements Context
     public function createPlusAndMinus($category, $plus = null, $minus = null)
     {
         $repo = new JuiceRepository;
-        $arrayPlus = explode(',', str_replace(', ', ',', $plus));
-        $arrayMinus = explode(',', str_replace(', ', ',', $minus));
+        $arrayPlus = explode(',', str_replace(', ', ',', $plus ?: "")) ?: [];
+        $arrayMinus = explode(',', str_replace(', ', ',', $minus ?: "")) ?: [];
         foreach ($arrayMinus as $k => $v) {
-            if (substr($minus, 0, 1) !== '-') {
+            if (substr($minus ?: "", 0, 1) !== '-') {
                 $arrayMinus[$k] = '-' . $arrayMinus[$k];
             }
         }

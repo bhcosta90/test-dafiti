@@ -1,63 +1,68 @@
-#------------------- BUILDING THE CONTAINER WITH COMPOSER ----------------------
-FROM php:8.1-fpm AS builder
+FROM php:8.1-fpm-alpine AS builder
 
 COPY . /var/www/
 WORKDIR /var/www
 
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
+ENV COMPOSER_HOME /composer
+ENV PATH ./vendor/bin:/composer/vendor/bin:$PATH
+ENV COMPOSER_ALLOW_SUPERUSER 1
 
-RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions mbstring zip exif pcntl
-
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    unzip \
-    git \
+RUN apk add --no-cache --virtual .build-deps \
+    $PHPIZE_DEPS \
+    curl-dev \
+    libtool \
+    libxml2-dev \
+    && apk add --no-cache \
+    bash \
     curl \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer \
+    freetype-dev \
+    g++ \
+    gcc \
+    libzip-dev \
+    oniguruma-dev \
+    zlib-dev \
+    && docker-php-ext-install \
+    bcmath \
+    curl \
+    mbstring \
+    pcntl \
+    xml \
+    zip \
+    && curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin/ --filename=composer \ 
     && composer install --optimize-autoloader --no-dev \
     && cp .env.example .env \
     && php artisan key:generate \
     && chmod -R 777 /var/www/storage \
     && php artisan config:cache \
     && php artisan route:cache \
-    && php artisan view:cache
+    && php artisan view:cache \
+    && apk del -f .build-deps
 
-#------------------------ BUILDER OF PRODUCTION --------------------------------
-FROM php:8.1-fpm
-COPY --from=builder /var/www/ /var/www/
+FROM php:8.1-fpm-alpine
 WORKDIR /var/www
+COPY --from=builder /var/www/ /var/www/
+
 ENV APP_ENV='production'
 ENV APP_DEBUG=false
 
-ADD https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions /usr/local/bin/
-
-RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
-    install-php-extensions mbstring zip exif pcntl
-
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    unzip \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* \
-    && groupadd -g 1000 www \
-    && useradd -u 1000 -ms /bin/bash -g www www
-
-COPY --chown=www:www . /var/www
-
-USER www
+RUN apk add --no-cache --virtual .build-deps \
+    $PHPIZE_DEPS \
+    curl-dev \
+    libtool \
+    libxml2-dev \
+    && apk add --no-cache \
+    bash \
+    freetype-dev \
+    g++ \
+    gcc \
+    oniguruma-dev \
+    zlib-dev \
+    && docker-php-ext-install \
+    bcmath \
+    curl \
+    mbstring \
+    pcntl \
+    xml
 
 EXPOSE 9000
 CMD ["php-fpm"]
