@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\app\Repository;
 
+use App\Repository\Exceptions\JuiceException;
 use App\Repository\JuiceRepository;
 use PHPUnit\Framework\TestCase;
 
@@ -93,6 +94,14 @@ class JuiceRepositoryTest extends TestCase
     {
         $ret = $this->getRepo()->filter('Just Desserts', '-banana,-cherry,-chocolate,-ice cream,-peanut');
         $this->assertEquals([], $ret);
+    }
+
+    public function testNotFoundJuice()
+    {
+        $this->expectException(JuiceException::class);
+        $this->expectExceptionCode(404);
+        $this->expectExceptionMessage('test not found');
+        $this->getRepo()->filter('test');
     }
 
     private function getRepo()

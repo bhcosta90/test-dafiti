@@ -4,6 +4,7 @@ namespace Tests\Unit\app\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\JuiceController;
 use App\Http\Requests\JuiceRequest;
+use App\Repository\Exceptions\JuiceException;
 use App\Repository\JuiceRepository;
 use Mockery;
 use PHPUnit\Framework\TestCase;
@@ -90,6 +91,14 @@ class JuiceControllerTest extends TestCase
             "cherry",
             "chocolate",
         ], $ret);
+    }
+
+    public function testNotFoundJuice()
+    {
+        $this->expectException(JuiceException::class);
+        $this->expectExceptionCode(404);
+        $this->expectExceptionMessage('test not found');
+        $this->controllerAndReturnResource('test');
     }
 
     private function controllerAndReturnResource(string $juice, array|string|null $filter = null)

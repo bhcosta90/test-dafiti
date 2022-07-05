@@ -32,6 +32,9 @@ jobs:
     # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
     # Docs: https://getcomposer.org/doc/articles/scripts.md
 
+    - name: Run phpcs
+      run: vendor/bin/phpcs app --ignore=vendor/ --standard=PSR1,PSR2
+
     - name: Run test unit
       run: vendor/bin/phpunit
 

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\app\Http\Controllers\Api;
 
+use App\Repository\Exceptions\JuiceException;
 use Tests\TestCase;
 
 class JuiceControllerTest extends TestCase
@@ -86,6 +87,14 @@ class JuiceControllerTest extends TestCase
             "cherry",
             "chocolate",
         ], $ret);
+    }
+
+    public function testNotFoundJuice()
+    {
+        $ret = $this->getJson('/api/juice/test');
+        $ret->assertStatus(404)->assertJson([
+            'message' => 'test not found'
+        ]);
     }
 
     private function executeResponse(string $juice, array|string|null $filter = null)
